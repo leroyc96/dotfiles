@@ -3,13 +3,9 @@ alias q="exit"
 alias la="ls -a"
 alias ll="ls -l"
 alias up="cd .."
+alias grep="grep --color=auto"
 
 alias work="cd /Users/leroy/Documents"
-alias evi="cd ~/Documents/Evichat"
-alias ans="cd ~/Documents/Evichat-Ansible"
-alias desk="cd ~/Documents/Evichat-Desktop"
-alias ai="cd ~/Documents/Evichat-Python"
-alias stg="ssh ubuntu@35.182.107.135"
 
 alias g="git"
 alias ga='git add'
@@ -69,5 +65,3 @@ if [ -f ~/.git-completion.bash ]; then
   __git_complete gc _git_checkout
   __git_complete gm _git_merge
 fi
-
-
