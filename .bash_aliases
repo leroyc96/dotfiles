@@ -13,36 +13,14 @@ alias gb='git branch'
 alias gc="git checkout"
 alias gd="git diff --cached --name-only"
 alias gm="git merge"
-alias gpull="git pull"
-alias gpush="git push"
+alias pull="git pull"
+alias push="git push"
 alias cmt="git commit -m"
 alias rb='git rebase'
 alias master='git checkout master && git pull'
 alias deps='bundle-stats versions'
 
 # Handy functions
-
-push () 
-{
-	if test "$#" -ne 1; then
-		branch="$(git rev-parse --abbrev-ref HEAD)"
-		echo "Pushing ${branch}..."
-		ssh-add -K ~/.ssh/id_rsa
-        	bundle exec cap staging deploy BRANCH=$branch
-		return 0
-	fi
-
-	find="$(git branch --list $1)"
-
-	if [ -z "$find" ]; then
-		echo "Cannot find branch $1".
-		return 1;
-	fi
-
-	ssh-add -K ~/.ssh/id_rsa
-	bundle exec cap staging deploy BRANCH=$1
-}
-
 gcb ()
 {
 	if test "$#" -ne 1; then
