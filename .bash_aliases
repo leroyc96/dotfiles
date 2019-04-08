@@ -1,22 +1,24 @@
-alias c="clear"
-alias q="exit"
-alias la="ls -a"
-alias ll="ls -l"
-alias up="cd .."
-alias grep="grep --color=auto"
+alias c='clear'
+alias q='exit'
+alias la='ls -a'
+alias ll='ls -l'
+alias up='cd ..'
+alias grep='grep --color=auto'
 
-alias work="cd /Users/leroy/Documents"
+alias work='cd /Users/leroy/Documents'
 
-alias g="git"
+alias g='git'
 alias ga='git add'
 alias gb='git branch'
-alias gc="git checkout"
-alias gd="git diff --cached --name-only"
-alias gm="git merge"
-alias pull="git pull"
-alias push="git push"
-alias cmt="git commit -m"
+alias gc='git checkout'
+alias gd='git diff --cached --name-only'
+alias gm='git merge'
+alias gs='git status'
+alias pull='git pull'
+alias push='git push'
+alias cmt='git commit -m'
 alias rb='git rebase'
+alias stash='git stash'
 alias master='git checkout master && git pull'
 alias deps='bundle-stats versions'
 
