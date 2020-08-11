@@ -1,11 +1,15 @@
-if [ -f ~/.bashrc ]; then
-	. ~/.bashrc
+if [ -f /usr/local/etc/bash_completion ]; then
+	. /usr/local/etc/bash_completion
+	__git_complete g _git_main
+	__git_complete gb _git_branch
+	__git_complete gc _git_checkout
 fi
 
-if [ -f ~/.bash_aliases ]; then
-	. ~/.bash_aliases
-fi
+[ -f ~/.git-completion.bash ] && . ~/.git-completion.bash
 
-if [ -f ~/.bash_prompt ]; then
-	. ~/.bash_prompt
-fi
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases
+
+[ -f ~/.bash_prompt ] && . ~/.bash_prompt
+
+[ -f ~/.bashrc ] && . ~/.bashrc
+

@@ -1,24 +1,6 @@
-get_bash_w() {
-  # Returns the same working directory that the \W bash prompt command
-  echo $(pwd | sed 's@'"$HOME"'@~@')
-}
-
-split_pwd() {
-  # Split pwd into the first element, elipsis (...) and the last subfolder
-  # /usr/local/share/doc --> /usr/.../doc
-  # ~/project/folder/subfolder --> ~/project/../subfolder
-  split=3
-  W=$(get_bash_w)
-  if [ $(echo $W | grep -o '/' | wc -l) -gt $split ]; then
-    echo $W | cut -d'/' -f1-$split | xargs -I{} echo {}"/.../${W##*/}"
-  else
-    echo $W
-  fi
-}
-
 # colors
 PS1='\[\033[1;31m\]\012\T '	# Time in red
-PS1+='\[\033[0;33m\]$( split_pwd )'	# pwd in blue
+PS1+='\[\033[0;33m\]$( pwd | sed 's@'"$HOME"'@~@' )'	# pwd in blue
 PS1+='\[\033[1;32m\]$( git branch 2> /dev/null | cut -f2 -d\* -s | sed "s/^ / (/" | sed "s/$/)/" )'
 PS1+='\[\033[0m\]\012\$ '	# newline and clear colour
 
