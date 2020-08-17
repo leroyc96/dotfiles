@@ -1,0 +1,24 @@
+function up() { local x='';for i in $(seq ${1:-1});do x="$x../"; done;cd $x; }
+
+function gbc ()
+{
+	if test "$#" -ne 1; then
+                echo "Usage: gcb <branch_name>"
+                echo "  to create fresh branch <branch_name> from master."
+                return 1;
+        fi
+
+	git checkout main 
+	git pull
+	git checkout -b $1
+}
+
+function squash()
+{
+	if test "$#" -ne 1; then
+		echo "Please indicate number of commits to squash."
+		return 1
+	fi
+
+	git rebase -i HEAD~$1
+}

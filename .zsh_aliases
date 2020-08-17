@@ -1,0 +1,45 @@
+function def_fun () {
+  while [[ $# -ge 2 ]]; do
+    eval "function $1 () { $2 \$@ }"
+    shift 2
+  done
+}
+
+function def_funs () {
+  def_fun $funs
+  unset funs
+}
+
+funs=(
+  c 'clear'
+  q 'exit'
+  v 'vim'
+  la 'ls -a'
+  ll 'ls -l'
+  grep 'grep --color auto'
+  rmi 'rm -i'
+  
+  dev 'cd ~/dev'
+  ccd 'cd ~/dev/brex/credit_card'
+  ui 'cd ~/dev/brex/credit_card/product/dashboard'
+  
+  flint 'yarn lint:fix'
+  typegen 'yarn types:generate'
+  sb 'yarn storybook'
+  
+  g 'git'
+  ga 'git add'
+  gb 'git branch'
+  gc 'git checkout'
+  gd 'git diff --cached --name-only'
+  gm 'git merge'
+  gl 'git checkout -'
+  gr 'git reset'
+  gs 'git status'
+  pull 'git pull'
+  push 'git push'
+  cmt 'git commit -m'
+  rb 'git rebase'
+  stash 'git stash'
+  gcm 'git checkout main  && git pull'
+); def_funs
