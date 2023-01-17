@@ -8,10 +8,12 @@ function gbc ()
                 return 1;
         fi
 
-	git checkout main 
-	git pull
+	git checkout main && 
+	git pull &&
 	git checkout -b $1
 }
+
+function cmt() { git commit -m "$1" && git push; }
 
 function squash()
 {
@@ -22,3 +24,27 @@ function squash()
 
 	git rebase -i HEAD~$1
 }
+
+function gbd()
+{
+	git branch | grep "$1"
+	echo "Deleting above branches. Confirm?"
+	select yn in "Yes" "No"; do
+		case $yn in
+			Yes )
+				git branch | grep "$1" | xargs git branch -D
+				break;;
+			No ) return 0;;
+		esac
+	done
+}
+
+function based()
+{
+	echo "$1" | base64 -D
+}
+
+function ga() { git add $1; git diff --cached --name-only; }
+
+function bstern() { brexctl pre stern $1 | cut -d ' ' -f3- | jq -R "fromjson?"; }
+

@@ -1,23 +1,9 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$PATH:/Users/leroychen/.asdf/shims"
 
-source ~/.powerlevel10k/powerlevel10k.zsh-theme
-ZSH_THEME=".powerlevel10k/powerlevel10k"
+. ~/.asdf/plugins/java/set-java-home.zsh
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-[[ ! -f ~/.zsh_aliases ]] || source ~/.zsh_aliases
-
-[[ ! -f ~/.zsh_functions ]] || source ~/.zsh_functions
-
-# Tell grep to highlight matches
-export GREP_OPTIONS='--color=auto'
-
-# Tell ls to be colourful
-export CLICOLOR=1
-export LSCOLORS=Exfxcxdxbxegedabagacad
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
