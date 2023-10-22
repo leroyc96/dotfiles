@@ -20,20 +20,7 @@ funs=(
   rmi 'rm -i'
   
   dev 'cd ~/dev'
-  ccd 'cd ~/dev/credit_card'
-  ui 'cd ~/dev/credit_card/product/dashboard'
-  pg 'cd ~/dev/playground'
-  
-  flint 'yarn lint:fix'
-  tg 'yarn types:generate'
-  sb 'yarn && yarn storybook'
-  dbash 'cd ~/dev/credit_card && script/exec bash'
-  k 'kubectl'
-  km 'brexctl init'
-  protog 'brexctl gen proto'
-  2fa 'pre-get-2fa'
-  ys 'yarn && yarn start'
- 
+
   g 'git'
   gb 'git branch'
   gc 'git checkout'
@@ -46,7 +33,6 @@ funs=(
   pull 'git pull'
   push 'git push'
   pushf 'git push -f'
-  cmt. 'git commit -m "." && git push'
   rb 'git rebase'
   rbm 'git checkout main && git pull && git checkout - && git rebase main && git push -f'
   rbc 'git rebase --continue'
@@ -54,9 +40,52 @@ funs=(
   stashp 'git stash pop'
   main 'git checkout main && git pull'
   prune 'git prune && git remote prune origin'
-
-  b 'brexctl'
-  remsh 'pre-remsh -p'
-  remsh-stg '~/dev/credit_card/script/brex-remsh -k staging -c 3ba13b6caff343daa1329f076c006d97 -p'
-  fwd-stg 'while true; do kubectl port-forward --context staging --namespace staging svc/core-pgbouncer 6666:5432; done;'
 ); def_funs
+
+function up() {local x='';for i in $(seq ${1:-1});do x="$x../"; done;cd $x; }
+
+function gbc () {
+	if test "$#" -ne 1; then
+		echo "Usage: gcb <branch_name>"
+		echo "  to create fresh branch <branch_name> from master."
+		return 1;
+	fi
+
+	git checkout main && 
+	git pull &&
+	git checkout -b $1
+}
+
+function cmt() {
+	if test "$#" -ne 1; then
+		git commit -m "." && git push
+	else
+		git commit -m "$1" && git push
+	fi
+}
+
+function squash() {
+	if test "$#" -ne 1; then
+		echo "Please indicate number of commits to squash."
+		return 1
+	fi
+
+	git rebase -i HEAD~$1
+}
+
+function gbd() {
+	git branch | grep "$1"
+	echo "Deleting above branches. Confirm?"
+  
+	read -r yn </dev/tty
+	case $yn in
+		y ) git branch | grep "$1" | xargs git branch -D;;
+		n ) return 0;;
+	esac
+}
+
+function based() {
+	echo "$1" | base64 -D
+}
+
+function ga() { git add $1; git diff --cached --name-only; }
