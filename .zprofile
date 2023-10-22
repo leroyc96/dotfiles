@@ -77,8 +77,6 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 [[ ! -f ~/.zsh_aliases ]] || source ~/.zsh_aliases
 
-[[ ! -f ~/.zsh_functions ]] || source ~/.zsh_functions
-
 # Tell grep to highlight matches
 export GREP_OPTIONS='--color=auto'
 
