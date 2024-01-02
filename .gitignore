@@ -1,1 +1,9 @@
 .DS_STORE
+*
+!.p10k.zsh
+!.vimrc
+!.zimrc
+!.zlogin
+!.zsh_aliases
+!.zshenv
+!.zshrc
