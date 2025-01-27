@@ -18,7 +18,11 @@ funs=(
   ll 'ls -l'
   lal 'ls -al'
   rmi 'rm -i'
-  
+  k 'kubectl'
+  r 'ranger'
+  dco 'docker-compose'
+
+  cl 'cd -'
   dev 'cd ~/dev'
 
   g 'git'
@@ -30,37 +34,59 @@ funs=(
   gl 'git checkout -'
   gr 'git reset'
   gs 'git status'
+  gst 'git stash'
+  gsl 'git stash list'
+  gsp 'git stash pop'
+  gsd 'git stash drop'
+  gsc 'git stash clear'
   pull 'git pull'
   push 'git push'
   pushf 'git push -f'
   rb 'git rebase'
-  rbm 'git checkout main && git pull && git checkout - && git rebase main && git push -f'
+  rbm 'git checkout master && git pull && git checkout - && git rebase master && git push -f'
+  rba 'git rebase --abort'
   rbc 'git rebase --continue'
-  stash 'git stash'
-  stashp 'git stash pop'
-  main 'git checkout main && git pull'
+  master 'git checkout master && git pull'
   prune 'git prune && git remote prune origin'
+  lint 'make fmt'
 ); def_funs
 
-function up() {local x='';for i in $(seq ${1:-1});do x="$x../"; done;cd $x; }
+function up() { local x='';for i in $(seq ${1:-1});do x="$x../"; done;cd $x; }
+
+function mkcd() {
+	if test "$#" -ne 1; then
+		return 1
+	fi
+
+	mkdir $1 && cd $1
+}
 
 function gbc () {
 	if test "$#" -ne 1; then
-		echo "Usage: gcb <branch_name>"
+		echo "Usage: gbc <branch_name>"
 		echo "  to create fresh branch <branch_name> from master."
 		return 1;
 	fi
 
-	git checkout main && 
+	git checkout master && 
 	git pull &&
 	git checkout -b $1
 }
 
+function rbmu() {
+	git checkout master &&
+	git fetch upstream &&
+	git rebase upstream/master &&
+	git push &&
+	git checkout - &&
+	git rebase master
+}
+
 function cmt() {
-	if test "$#" -ne 1; then
+	if test "$#" -lt 1; then
 		git commit -m "." && git push
 	else
-		git commit -m "$1" && git push
+		git commit -m "$*" && git push
 	fi
 }
 
@@ -75,7 +101,7 @@ function squash() {
 
 function gbd() {
 	git branch | grep "$1"
-	echo "Deleting above branches. Confirm?"
+	echo "Deleting above branches. Confirm? (y|n)"
   
 	read -r yn </dev/tty
 	case $yn in
@@ -88,4 +114,12 @@ function based() {
 	echo "$1" | base64 -D
 }
 
-function ga() { git add $1; git diff --cached --name-only; }
+function ga() {
+	buf mod update protos && (make fmt || make format)
+	git add $1
+	git diff --cached --name-only
+}
+
+function tp() { mkdir -p "$(dirname "$1")" && touch "$1"; }
+
+function tag() { git checkout master && git tag $1 && git push origin $1; }
