@@ -123,3 +123,15 @@ function ga() {
 function tp() { mkdir -p "$(dirname "$1")" && touch "$1"; }
 
 function tag() { git checkout master && git tag $1 && git push origin $1; }
+
+function giffer () {
+	if test "$#" -ne 1; then
+		echo "Usage: giffer  <path>"
+		echo "  to create a gif of a video."
+		return 1;
+	fi
+
+	ffmpeg -i "$1" \
+	-vf "fps=30,scale=1200:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
+	-loop 0 "${1%.*}.gif"
+}
