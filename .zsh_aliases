@@ -19,8 +19,6 @@ funs=(
   lal 'ls -al'
   rmi 'rm -i'
   k 'kubectl'
-  r 'ranger'
-  dco 'docker-compose'
 
   cl 'cd -'
   dev 'cd ~/dev'
@@ -115,7 +113,6 @@ function based() {
 }
 
 function ga() {
-	buf mod update protos && (make fmt || make format)
 	git add $1
 	git diff --cached --name-only
 }
