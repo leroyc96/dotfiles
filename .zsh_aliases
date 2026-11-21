@@ -12,6 +12,7 @@ function def_funs () {
 
 funs=(
   c 'clear'
+  n 'nvim'
   q 'exit'
   v 'vim'
   la 'ls -a'
@@ -81,7 +82,7 @@ function rbmu() {
 }
 
 function cmt() {
-	if test "$#" -lt 1; then
+	if test "$#" -eq 0; then
 		git commit -m "." && git push
 	else
 		git commit -m "$*" && git push
