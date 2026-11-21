@@ -45,4 +45,3 @@ nvm() {
   nvm "$@"
 }
 
-eval "$(pyenv init - zsh)"
