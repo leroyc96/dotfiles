@@ -53,3 +53,6 @@
 
 unfocused-split-opacity = 0.5
 theme = light:GitHub Light High Contrast,dark:GitHub Dark High Contrast
+cursor-style = block
+cursor-style-blink = true
+shell-integration-features = no-cursor
